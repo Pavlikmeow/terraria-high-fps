@@ -1,0 +1,17 @@
+.build/
+.deps/
+dist/
+release/
+*.user
+*.suo
+*.exe
+*.dll
+*.pdb
+*.nupkg
+*.zip
+*.log
+*.building-*
+*.old-*
+Content/
+Players/
+Worlds/
