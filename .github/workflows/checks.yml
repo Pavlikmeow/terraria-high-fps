@@ -1,0 +1,31 @@
+name: Launcher and source checks
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+jobs:
+  launcher:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Check PowerShell syntax and tracked source files
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Get-ChildItem scripts -Filter *.ps1 | ForEach-Object {
+            $parseErrors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$null, [ref]$parseErrors)
+            if ($parseErrors) { throw ($parseErrors | Out-String) }
+          }
+          $prohibited = git ls-files | Where-Object { $_ -match '(?i)(\.(exe|dll|nupkg|zip|wld|plr)$|(^|/)(Content|\.deps|\.build|dist|release)/)' }
+          if ($prohibited) { throw ('Do not commit game files or generated binaries: ' + ($prohibited -join ', ')) }
+      - name: Compile launcher and check seven languages
+        shell: powershell
+        run: .\scripts\test-launcher.ps1
+      - name: Check release checksum validation
+        shell: powershell
+        run: .\scripts\test-release.ps1
