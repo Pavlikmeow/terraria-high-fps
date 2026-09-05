@@ -66,6 +66,9 @@ internal static class UiHarness
                 {
                     form.SetPreviewState(true, true);
                     form.AutoScaleMode = AutoScaleMode.None;
+                    // EN: Keep offscreen test windows independent of the CI desktop's maximum tracking size.
+                    // RU: Размер тестового окна вне экрана не должен ограничиваться рабочим столом CI.
+                    form.MaximumSize = new Size(4096, 4096);
                     var fonts = new Dictionary<Control, Font>();
                     RememberFonts(form, fonts);
                     form.Scale(new SizeF(scale, scale));
