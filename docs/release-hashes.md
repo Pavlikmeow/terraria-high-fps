@@ -1,4 +1,4 @@
-﻿# Release checksums / Контрольные суммы
+# Release checksums / Контрольные суммы
 
 Version **1.1.0**, Terraria **1.4.5.8**, Windows x86.
 

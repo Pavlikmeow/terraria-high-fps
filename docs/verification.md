@@ -18,7 +18,7 @@ Checked locally on Windows using the .NET Framework 4.x compiler, XNA 4 and a pr
 | Dependencies | Pinned package/DLL hashes verified; fresh package extraction checked |
 | Checksums | Valid files accepted; changed, missing, duplicate, malformed, empty and escaping entries rejected |
 
-Run `scripts/test.ps1` to repeat the suite. `scripts/test-launcher.ps1` and `scripts/test-release.ps1` can run without the game. See [build instructions](building.md). GitHub CI has been configured; a hosted CI run is not claimed before the repository is published.
+Run `scripts/test.ps1` to repeat the suite. `scripts/test-launcher.ps1` and `scripts/test-release.ps1` can run without the game. See [build instructions](building.md). Current CI results are available in [Actions](https://github.com/Pavlikmeow/terraria-high-fps/actions).
 
 These checks do not measure real gameplay FPS, visual quality on every monitor, or multiplayer behavior. No new interactive gameplay session, independent security audit, antivirus certification, or Authenticode signing was performed for this release. Scaling tests simulate layout; they do not replace testing every Windows DPI/display configuration.
 
@@ -28,4 +28,4 @@ These checks do not measure real gameplay FPS, visual quality on every monitor, 
 
 Семь языков проверены при двух ширинах окна, включая сообщения об ошибках. Выполнены моделирование масштаба 150%/200% и визуальная проверка снимков. Проверены CLI, распаковка зависимости и отклонение неправильных контрольных сумм. Для повторения используйте [инструкцию сборки](building.ru.md).
 
-Новый ручной игровой сеанс в этом выпуске не проводился. Эти результаты не являются измерением FPS, проверкой всех мониторов или мультиплеера, независимым аудитом, антивирусной сертификацией или цифровой подписью. Настроенный GitHub CI ещё предстоит запустить после публикации репозитория.
+Новый ручной игровой сеанс в этом выпуске не проводился. Эти результаты не являются измерением FPS, проверкой всех мониторов или мультиплеера, независимым аудитом, антивирусной сертификацией или цифровой подписью. Текущие результаты CI доступны в [Actions](https://github.com/Pavlikmeow/terraria-high-fps/actions).

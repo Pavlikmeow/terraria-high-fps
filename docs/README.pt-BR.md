@@ -13,7 +13,7 @@ Compatível somente com **Steam Terraria 1.4.5.8 para Windows, EXE original x86*
 
 ## Comece a jogar
 
-1. Na seção **Releases** deste repositório, baixe `HighFPS-Support-1.1.0-Terraria-1.4.5.8-win-x86.zip`. **Extraia todo o arquivo** para uma pasta. Não execute dentro do ZIP nem mova só o EXE.
+1. Na seção [Releases](https://github.com/Pavlikmeow/terraria-high-fps/releases) deste repositório, baixe `HighFPS-Support-1.1.0-Terraria-1.4.5.8-win-x86.zip`. **Extraia todo o arquivo** para uma pasta. Não execute dentro do ZIP nem mova só o EXE.
 2. Verifique o download conforme as instruções abaixo. Feche o Terraria e deixe o Steam aberto.
 3. Abra **`HighFpsSupport.exe`**. No canto superior direito, em **Language / Язык**, escolha **Português (Brasil)**. A escolha fica salva e só altera o launcher.
 4. Confira a pasta encontrada. Se necessário, selecione a que contém **`Terraria.exe` e `Content`**. No Steam: Terraria → Propriedades → Arquivos instalados → Explorar.
@@ -53,6 +53,6 @@ Se houver erro: feche o jogo completamente, extraia todo o ZIP novamente e confi
 
 ## Licença e créditos
 
-Código e documentação próprios: [MIT](../LICENSE), © 2026 pavlikmeow. Mono.Cecil tem seu próprio aviso MIT. Créditos a [TerrariaHighFPS](https://github.com/Yukurotei/TerrariaHighFPS) pela abordagem descrita publicamente; a menção não autoriza copiar código sem licença. [Avisos completos (EN/RU)](../THIRD-PARTY-NOTICES.md).
+Por **pavlikmeow**. O código e a documentação do projeto usam a licença [MIT](../LICENSE). Obrigado ao [TerrariaHighFPS](https://github.com/Yukurotei/TerrariaHighFPS) pela abordagem de interpolação. As licenças e os avisos do Mono.Cecil estão nos [avisos de terceiros (EN/RU)](../THIRD-PARTY-NOTICES.md).
 
-Projeto independente de fãs, sem vínculo ou aprovação de Re-Logic, Valve ou Microsoft. Terraria pertence à Re-Logic; outros nomes pertencem aos respectivos titulares. O jogo, seus recursos e XNA não são distribuídos. Não publique o EXE do jogo gerado localmente. A licença do projeto não concede direitos sobre esses produtos; os termos deles e a legislação aplicável continuam valendo.
+Projeto de fãs não oficial, sem vínculo com Re-Logic, Valve ou Microsoft. O jogo e seus recursos não estão incluídos; você precisa da sua própria cópia do Terraria.

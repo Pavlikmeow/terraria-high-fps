@@ -13,7 +13,7 @@ Unterstützt wird ausschließlich **Steam Terraria 1.4.5.8 für Windows, origina
 
 ## In wenigen Schritten spielen
 
-1. Lade in **Releases** dieses Repositorys `HighFPS-Support-1.1.0-Terraria-1.4.5.8-win-x86.zip` herunter. Entpacke **das gesamte Archiv** in einen eigenen Ordner. Starte es nicht innerhalb des ZIPs und verschiebe nicht nur die EXE.
+1. Lade in [Releases](https://github.com/Pavlikmeow/terraria-high-fps/releases) dieses Repositorys `HighFPS-Support-1.1.0-Terraria-1.4.5.8-win-x86.zip` herunter. Entpacke **das gesamte Archiv** in einen eigenen Ordner. Starte es nicht innerhalb des ZIPs und verschiebe nicht nur die EXE.
 2. Prüfe den Download wie unten beschrieben. Schließe Terraria und lasse Steam laufen.
 3. Öffne **`HighFpsSupport.exe`**. Wähle oben rechts unter **Language / Язык** die Sprache **Deutsch**. Die Auswahl wird gespeichert und ändert nur den Launcher.
 4. Prüfe den erkannten Spielordner. Falls nötig, wähle den Ordner mit **`Terraria.exe` und `Content`**. Über Steam findest du ihn unter Terraria → Eigenschaften → Installierte Dateien → Durchsuchen.
@@ -51,8 +51,8 @@ Der Launcher hat keine Telemetrie, Anmeldung, Laufzeit-Downloads oder automatisc
 
 Bei Problemen: Spiel vollständig schließen; das gesamte ZIP erneut entpacken; die richtige Spielversion und Schreibrechte prüfen. Mit **Installieren / aktualisieren** lässt sich eine beschädigte Installation erneuern. Unter **Technische Details** findest du Diagnosen. Entferne persönliche Pfade vor dem Teilen. [Ausführliche Hilfe (EN)](guide.md) · [Sicherheit (EN/RU)](../SECURITY.md) · [Technik (EN)](architecture.md) · [Selbst bauen (EN)](building.md).
 
-## Lizenz und Hinweise
+## Lizenz und Credits
 
-Projekteigener Code und Dokumentation: [MIT](../LICENSE), © 2026 pavlikmeow. Mono.Cecil: separate MIT-Lizenz. Die öffentlich beschriebene Idee von [TerrariaHighFPS](https://github.com/Yukurotei/TerrariaHighFPS) wird gewürdigt; das erlaubt keine Übernahme unlizenzierter Quellen. [Vollständige Hinweise (EN/RU)](../THIRD-PARTY-NOTICES.md).
+Von **pavlikmeow**. Projekteigener Code und Dokumentation stehen unter [MIT](../LICENSE). Danke an [TerrariaHighFPS](https://github.com/Yukurotei/TerrariaHighFPS) für den Interpolationsansatz. Lizenzen und Hinweise zu Mono.Cecil stehen in den [Drittanbieterhinweisen (EN/RU)](../THIRD-PARTY-NOTICES.md).
 
-Unabhängiges Fanprojekt ohne Verbindung zu oder Unterstützung durch Re-Logic, Valve oder Microsoft. Terraria gehört Re-Logic; andere Produktnamen gehören ihren jeweiligen Rechteinhabern. Spiel, Spielinhalte und XNA werden nicht mitgeliefert. Veröffentliche die lokal erzeugte Spiel-EXE nicht. Die Projektlizenz erteilt keine Rechte an diesen Produkten; deren Bedingungen und das geltende Recht bleiben maßgeblich.
+Ein inoffizielles Fanprojekt ohne Verbindung zu Re-Logic, Valve oder Microsoft. Das Spiel und seine Ressourcen sind nicht enthalten; du brauchst eine eigene Kopie von Terraria.
