@@ -9,8 +9,7 @@ $base = (Resolve-Path -LiteralPath $Directory).Path.TrimEnd('\', '/')
 $manifest = Join-Path $base 'SHA256SUMS.txt'
 $seen = @{}
 
-# EN: Reject ambiguous entries and paths outside the selected release folder.
-# RU: Отклоняем неоднозначные записи и пути за пределами выбранной папки релиза.
+# Reject ambiguous entries and paths outside the selected release folder.
 foreach ($line in Get-Content -LiteralPath $manifest) {
     if ([string]::IsNullOrWhiteSpace($line)) { continue }
     if ($line -notmatch '^([A-Fa-f0-9]{64}) \*(.+)$') { throw "Invalid checksum line: $line" }

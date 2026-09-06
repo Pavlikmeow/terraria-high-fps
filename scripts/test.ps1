@@ -10,8 +10,7 @@ $xna = @(Get-XnaReferences)
 $run = Join-Path $root ('.build\tests-' + [Guid]::NewGuid().ToString('N'))
 $mock = Join-Path $run 'game'
 New-Item -ItemType Directory -Force -Path $run, $mock, (Join-Path $mock 'Content') | Out-Null
-# EN: All mutation tests use a private copy. Never install into the actual Steam directory.
-# RU: Все тесты изменений работают с копией. В настоящую папку Steam ничего не устанавливается.
+# All mutation tests use a private copy. Never install into the actual Steam directory.
 Copy-Item -LiteralPath $game -Destination (Join-Path $mock 'Terraria.exe')
 Set-Content -LiteralPath (Join-Path $mock '.highfps-test-fixture') -Value 'Isolated test copy / Изолированная тестовая копия'
 Copy-Item -LiteralPath $cecil -Destination (Join-Path $run 'Mono.Cecil.dll')
@@ -31,8 +30,7 @@ Invoke-Harness 'InstallHarness' @($mock)
 Copy-Item -LiteralPath $logic -Destination (Join-Path $mock 'HighFPS.Support.dll')
 Invoke-Harness 'PatchHarness' @((Join-Path $mock 'Terraria.exe'), (Join-Path $mock 'Terraria.HighFPS.exe'), (Join-Path $mock 'HighFPS.Support.dll'))
 
-# EN: Extract dependencies from the user's copy for isolated JIT/runtime tests only.
-# RU: Зависимости из копии игры используются только для изолированных тестов JIT и логики.
+# Extract dependencies from the user's copy for isolated JIT/runtime tests only.
 & $csc /nologo /codepage:65001 /target:exe /platform:x86 "/out:$(Join-Path $run 'ResourceExtractor.exe')" "/reference:$cecil" (Join-Path $root 'tools\ResourceExtractor.cs')
 if ($LASTEXITCODE -ne 0) { throw 'Resource extractor compilation failed.' }
 $resources = @{
@@ -51,8 +49,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Patched method JIT verification failed.' }
 & (Join-Path $mock 'InterpolationHarness.exe')
 if ($LASTEXITCODE -ne 0) { throw 'Interpolation regression checks failed.' }
 Invoke-Harness 'UiHarness' @((Join-Path $run 'screenshots'))
-# EN: Exercise the shipped Windows executable too, including its redirected CLI diagnostics.
-# RU: Проверяем и готовый EXE Windows, включая перенаправленный вывод CLI-диагностики.
+# Exercise the shipped Windows executable too, including its redirected CLI diagnostics.
 foreach ($case in @(@('--version', 0), @('--help', 0), @('--unknown', 2), @('--diagnose', 1), @('--install', 0), @('--diagnose', 0), @('--remove', 0))) {
     $arguments = @($case[0])
     if ($case[0] -in @('--diagnose', '--install', '--remove')) { $arguments += ('"' + $mock + '"') }

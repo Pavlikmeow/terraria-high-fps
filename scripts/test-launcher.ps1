@@ -8,8 +8,7 @@ $run = Join-Path $root ('.build\ui-' + [Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Force -Path $run | Out-Null
 if (-not $ScreenshotDirectory) { $ScreenshotDirectory = Join-Path $run 'screenshots' }
 $sources = @(Get-ChildItem -LiteralPath (Join-Path $root 'src\HighFPS.Launcher') -Filter '*.cs' | ForEach-Object FullName)
-# EN: UI tests need neither Terraria nor its proprietary resources. Game actions are never invoked.
-# RU: Тесты интерфейса не требуют Terraria и её ресурсов. Действия с игрой не вызываются.
+# UI tests need neither Terraria nor its proprietary resources. Game actions are never invoked.
 & $csc /nologo /codepage:65001 /target:exe /platform:x86 /warnaserror+ /main:UiHarness "/out:$(Join-Path $run 'UiHarness.exe')" "/reference:$cecil" /reference:System.Windows.Forms.dll /reference:System.Drawing.dll $sources (Join-Path $root 'tools\UiHarness.cs')
 if ($LASTEXITCODE -ne 0) { throw 'UI harness compilation failed.' }
 Copy-Item -LiteralPath $cecil -Destination (Join-Path $run 'Mono.Cecil.dll')

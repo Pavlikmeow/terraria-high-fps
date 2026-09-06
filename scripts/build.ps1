@@ -13,8 +13,7 @@ $dist = Join-Path $root 'dist'
 $release = Join-Path $root 'release'
 New-Item -ItemType Directory -Force -Path $stage, $dist, $release | Out-Null
 
-# EN: Build in a fresh directory; package only explicitly selected project files.
-# RU: Собираем в новой папке; в архив попадают только явно выбранные файлы проекта.
+# Build in a fresh directory; package only explicitly selected project files.
 $logicOutput = Join-Path $stage 'HighFPS.Support.dll'
 & $csc /nologo /codepage:65001 /target:library /optimize+ /platform:x86 /warnaserror+ "/out:$logicOutput" "/reference:$gameExe" $xna (Join-Path $root 'src\HighFPS.Support\FpsManager.cs')
 if ($LASTEXITCODE -ne 0) { throw 'Runtime compilation failed.' }
@@ -28,8 +27,7 @@ foreach ($name in @('README.md', 'LICENSE', 'THIRD-PARTY-NOTICES.md', 'SECURITY.
 }
 Copy-Item -LiteralPath (Join-Path $root 'docs') -Destination (Join-Path $stage 'docs') -Recurse
 Copy-Item -LiteralPath (Join-Path $root '.github') -Destination (Join-Path $stage '.github') -Recurse
-# EN: Ship the exact sources beside binaries so the release can be inspected and rebuilt.
-# RU: Исходники включены рядом с бинарниками, чтобы релиз можно было изучить и пересобрать.
+# Ship the exact sources beside binaries so the release can be inspected and rebuilt.
 foreach ($folder in @('src', 'scripts', 'tools')) {
     foreach ($file in Get-ChildItem -LiteralPath (Join-Path $root $folder) -File -Recurse) {
         if ($file.Extension -notin @('.cs', '.ps1')) { continue }
@@ -38,15 +36,14 @@ foreach ($folder in @('src', 'scripts', 'tools')) {
         Copy-Item -LiteralPath $file.FullName -Destination $target
     }
 }
-# EN: The packaged page contains binary hashes; the repository page also contains the ZIP hash.
-# RU: Страница в архиве содержит хеши бинарников, а страница в репозитории ещё и хеш ZIP.
+# The packaged page contains binary hashes; the local release report also includes the ZIP hash.
 $packagedHashes = @('# Release checksums / Контрольные суммы', '', 'High FPS Support 1.1.0. Compare the ZIP hash with the separately published release checksum before extracting. / Сверьте хеш ZIP с отдельно опубликованной суммой релиза до распаковки.', '', 'Run `powershell -File .\verify-release.ps1` from the extracted folder to check the files. Checksums are not signatures or malware scans. / Хеши не являются цифровой подписью или антивирусной проверкой.', '', '| File | SHA-256 |', '| --- | --- |')
 foreach ($name in @('HighFpsSupport.exe', 'HighFPS.Support.dll', 'Mono.Cecil.dll')) {
     $packagedHashes += '| ' + $name + ' | `' + (Get-FileHash -LiteralPath (Join-Path $stage $name) -Algorithm SHA256).Hash + '` |'
 }
 $packagedHashes | Set-Content -LiteralPath (Join-Path $stage 'docs\release-hashes.md') -Encoding UTF8
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'verify-release.ps1') -Destination (Join-Path $stage 'verify-release.ps1')
-$files = @(Get-ChildItem -LiteralPath $stage -File -Recurse | Sort-Object FullName)
+$files = @(Get-ChildItem -LiteralPath $stage -File -Recurse -Force | Sort-Object FullName)
 $hashLines = foreach ($file in $files) {
     $name = $file.FullName.Substring($stage.Length + 1).Replace('\', '/')
     (Get-FileHash -Algorithm SHA256 -LiteralPath $file.FullName).Hash + ' *' + $name
@@ -55,8 +52,7 @@ $hashLines | Set-Content -Encoding ASCII -LiteralPath (Join-Path $stage 'SHA256S
 & (Join-Path $PSScriptRoot 'verify-release.ps1') -Directory $stage
 $archiveName = 'HighFPS-Support-1.1.0-Terraria-1.4.5.8-win-x86.zip'
 $zip = Join-Path $release $archiveName
-# EN: Explicit portable ZIP entry names avoid PowerShell 5.1's backslash paths and hidden-file omissions.
-# RU: Явные имена ZIP с прямым слешем исключают ошибки путей и пропуски скрытых файлов в PowerShell 5.1.
+# Explicit portable ZIP entry names avoid PowerShell 5.1's backslash paths and hidden-file omissions.
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $zipStream = [IO.File]::Open($zip + '.building', [IO.FileMode]::Create)
@@ -79,6 +75,6 @@ foreach ($name in @('HighFpsSupport.exe', 'HighFPS.Support.dll', 'Mono.Cecil.dll
 }
 $hashDoc += '| ' + $archiveName + ' | `' + $archiveHash + '` |'
 $hashDoc += @('', ('Verify extracted files with `powershell -File .\verify-release.ps1`. Verify the ZIP with `Get-FileHash -Algorithm SHA256 .\' + $archiveName + '` and compare against the table above.'), '', 'RU: Сверяйте хеш с отдельной доверенной копией этой страницы. Хеши не заменяют подпись издателя, изучение исходников или проверку антивирусом.')
-$hashDoc | Set-Content -LiteralPath (Join-Path $root 'docs\release-hashes.md') -Encoding UTF8
+$hashDoc | Set-Content -LiteralPath (Join-Path $release 'release-hashes.md') -Encoding UTF8
 Write-Host "Built launcher: $dist\HighFpsSupport.exe"
 Write-Host "Release: $zip"
