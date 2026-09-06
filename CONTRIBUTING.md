@@ -1,33 +1,29 @@
-# Contributing / Участие в разработке
+# Contributing
 
 [English](#english) · [Русский](#русский)
 
 ## English
 
-Small fixes, clearer translations and reproducible bug reports are welcome. Discuss a change to supported game versions, rendering behavior, dependencies or the security model in an issue before undertaking a large implementation.
+Bug fixes, translations and clear bug reports are welcome. For changes to rendering or supported game versions, open an issue first so we can discuss the approach.
 
-1. Read the [architecture](docs/architecture.md) and [build instructions](docs/building.md).
-2. Keep each pull request focused. Explain the user-visible problem, resulting behavior and validation you actually performed.
-3. Preserve the original-game invariant, exact compatibility checks, install verification and restoration of simulation positions after drawing. Do not add telemetry, downloads or elevated privileges as an incidental change.
-4. Comment the important invariants and non-obvious decisions in **English and Russian**. Comments should explain why, not paraphrase each line.
-5. Keep launcher strings in its localization catalog. Maintain the same keys and placeholders in all seven languages. Use native language names, test longer labels, keyboard navigation and Windows display scaling. The language switch changes the launcher, not Terraria's language.
-6. Run the relevant checks and a build. Rendering changes also need in-game validation; report the display refresh rate and tested scenarios. Do not describe a headless harness as a gameplay test.
+Start with the [build instructions](docs/building.md) and [architecture](docs/architecture.md). Keep each pull request focused and describe the problem, the change and the checks you ran.
 
-Use your own code or a dependency with a compatible, documented license. Include attribution and complete required notices. Public code without a license is not automatically reusable. Never attach `Terraria.exe`, patched game binaries, XNA DLLs, worlds, characters, credentials or private logs to a PR. Your contribution is offered under the [project MIT license](LICENSE); third-party rights remain with their owners.
+- Keep the original game executable intact, validate compatibility and restore simulation positions after drawing.
+- Use English comments for non-obvious decisions. User-facing text belongs in `Localization.cs`; keep keys and placeholders consistent across all seven languages.
+- Run the relevant checks from the build guide. Rendering changes also need in-game testing; include the refresh rate and scenarios you checked.
+- Keep generated binaries, game files and personal data out of commits. Preserve dependency licenses and attribution. Contributions to project code use the [MIT license](LICENSE).
 
-Bug reports should include the mod and game versions, Windows version, monitor refresh rate, install stage, expected/actual result, and a short reproduction. Redact usernames and local paths from diagnostics. For vulnerabilities, follow [SECURITY.md](SECURITY.md).
+For a bug report, include the mod, Terraria and Windows versions, monitor refresh rate, steps to reproduce, and what you expected to happen. Remove personal paths from diagnostics. For vulnerabilities, use [SECURITY.md](SECURITY.md).
 
 ## Русский
 
-Приветствуются небольшие исправления, улучшения переводов и воспроизводимые сообщения об ошибках. Крупные изменения совместимости, отрисовки, зависимостей и безопасности сначала обсудите в Issue.
+Приветствуются исправления, переводы и понятные сообщения об ошибках. Изменения отрисовки или поддерживаемых версий игры сначала обсудите в Issue.
 
-1. Прочитайте [описание устройства](docs/architecture.ru.md) и [сборки](docs/building.ru.md).
-2. Делайте PR с одной понятной задачей. Опишите проблему, поведение после исправления и реально выполненные проверки.
-3. Сохраняйте оригинальный EXE, строгую совместимость, проверку установки и возврат игровых координат после кадра. Не добавляйте попутно телеметрию, загрузки и повышение прав.
-4. Основные инварианты и неочевидные решения комментируйте на **английском и русском**. Объясняйте причину, а не повторяйте строку кода.
-5. Тексты лаунчера храните в каталоге локализации. Сохраняйте одинаковые ключи и параметры во всех семи языках. Проверяйте длинные подписи, клавиатуру и масштаб Windows. Переключатель меняет язык лаунчера, а не Terraria.
-6. Выполните подходящие проверки и сборку. Изменения отрисовки проверяйте в игре, указывая частоту монитора и сценарии. Автоматический тест без игры не заменяет игровую проверку.
+Начните с [инструкции сборки](docs/building.ru.md) и [описания устройства](docs/architecture.ru.md). Посвящайте каждый PR одной задаче: опишите проблему, исправление и выполненные проверки.
 
-Используйте собственный код или компоненты с подходящей проверенной лицензией. Сохраняйте авторство и полный текст необходимых уведомлений. Отсутствие лицензии у публичного кода не делает его свободным для копирования. Не прикладывайте игру, изменённые EXE игры, XNA DLL, миры, персонажей, пароли и личные журналы. Собственный вклад предоставляется по [MIT](LICENSE); права третьих лиц сохраняются.
+- Сохраняйте оригинальный EXE, проверку совместимости и восстановление игровых координат после отрисовки.
+- Пишите комментарии к неочевидным решениям на английском. Тексты интерфейса храните в `Localization.cs`, сохраняя одинаковые ключи и параметры во всех семи языках.
+- Выполняйте подходящие проверки из инструкции сборки. Изменения отрисовки проверяйте и в игре: укажите частоту монитора и сценарии.
+- Не добавляйте сборки, файлы игры и личные данные в коммиты. Сохраняйте лицензии зависимостей и авторство. Вклад в код проекта распространяется по [MIT](LICENSE).
 
-В Issue укажите версии мода, игры и Windows, частоту монитора, этап установки, ожидаемый и фактический результат, шаги воспроизведения. Удалите имя пользователя и локальные пути из диагностики. Об уязвимостях сообщайте по [правилам безопасности](SECURITY.md#русский).
+В сообщении об ошибке укажите версии мода, Terraria и Windows, частоту монитора, шаги воспроизведения и ожидаемый результат. Удалите личные пути из диагностики. Об уязвимостях сообщайте по [SECURITY.md](SECURITY.md#русский).

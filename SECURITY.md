@@ -1,78 +1,75 @@
-# Security / Безопасность
+# Security
 
-[English](#english) · [Русский](#русский) · [README](README.md)
+[English](#english) · [Русский](#русский)
 
 ## English
 
-### Supported scope
+This document covers High FPS Support 1.1.0 for Steam Terraria 1.4.5.8 on Windows x86.
 
-This security description covers **High FPS Support 1.1.0 for Steam Terraria 1.4.5.8, Windows x86**. Older mod releases and different game builds are outside the current supported scope. This is a community project: no external security audit, response-time commitment or code-signing certificate is claimed.
+### Files and permissions
 
-### What runs and what is stored
+The launcher runs with your Windows account's permissions and needs write access to the game folder. It leaves the original `Terraria.exe` unchanged.
 
-| Location / action | Purpose |
+| Location | Contents |
 | --- | --- |
-| Extracted launcher folder | Launcher, runtime DLL, Mono.Cecil, source, build/test scripts, documentation and checksums |
-| Game folder: `Terraria.HighFPS.exe` | Separate executable generated from your local game |
-| Game folder: `HighFPS.Support.dll` | Render interpolation runtime |
-| Game folder: `HighFPS.Support.install.txt` | Mod/game versions and SHA-256 hashes of the source, output and runtime |
-| Game folder: `HighFPS.Support.log` | Startup and error diagnostics; may contain local paths and exception details |
-| Temporary files/directories in game folder | Staging and rollback during install; recovery data may remain if recovery fails |
-| `%LOCALAPPDATA%\TerrariaHighFPS\game-path.txt` | Selected game directory |
+| Game folder: `Terraria.HighFPS.exe` | Separate patched executable |
+| Game folder: `HighFPS.Support.dll` | Interpolation runtime |
+| Game folder: `HighFPS.Support.install.txt` | Versions and hashes used to verify the installation |
+| Game folder: `HighFPS.Support.log` | Runtime startup and error diagnostics |
+| Game folder: `.HighFPS-staging-*` | Temporary installation and rollback files; retained if recovery fails |
+| `%LOCALAPPDATA%\TerrariaHighFPS\game-path.txt` | Selected game folder |
 | `%LOCALAPPDATA%\TerrariaHighFPS\language.txt` | Launcher language |
-| Steam registry keys and `libraryfolders.vdf` | Read-only installation discovery |
-| Process list | Check that Terraria is closed before installing/removing |
 
-The launcher does not change the original `Terraria.exe`, install services/drivers, add scheduled tasks, write Steam registry settings, request credentials, or upload logs. It runs with your current Windows permissions and needs write access to the game folder. It is not a sandbox: a launcher or game you choose to run can act with those permissions.
+Game discovery reads Steam's registry paths and `libraryfolders.vdf`. Before installing or removing files, the launcher checks for running Terraria processes.
 
-The launcher and interpolation runtime contain no network client, telemetry or automatic updater. **Building** may download the pinned Mono.Cecil package from `api.nuget.org`; it checks the package and DLL hashes before use. Steam and Terraria themselves use the network normally. Opening documentation links in your browser contacts the linked sites.
+The launcher and interpolation runtime have no telemetry, network downloads or automatic updater. They do not install services, drivers or scheduled tasks. Building may download the pinned Mono.Cecil package from NuGet and verifies its package and DLL hashes. Steam and Terraria keep their own network behavior.
 
-The mod uses normal Terraria saves. Its runtime forces Frame Skip off, which the game may preserve in its normal configuration. Uninstalling the mod does not reset Terraria's own settings.
+The mod uses normal Terraria saves. It sets Frame Skip to Off, which Terraria may retain in its own settings after removal.
 
-### Integrity controls and their limits
+### Verification and limits
 
-- The patcher checks the game assembly name, exact version, architecture, required members and expected hook locations, then reads back the generated output and verifies its hooks.
-- Installation stages and validates files before replacing the installed mod. A failed commit attempts rollback. This is not an all-or-nothing transaction across a power loss; retained recovery files and an error message require attention.
-- Installation reuse and launcher startup check recorded hashes against the current original game, generated EXE and runtime DLL. The installed runtime must match the launcher's embedded copy. Launching `Terraria.HighFPS.exe` directly skips the launcher's checks.
-- These checks detect unexpected changes and incompatibility. They do **not** authenticate Terraria as a genuine Steam download, certify arbitrary same-version game files, or resist an attacker who can replace the launcher and its metadata together. Use Steam's file verification when the original is suspect.
-- Release checksums identify exact artifacts when compared with an independently trusted release. A ZIP and checksum from the same compromised source can agree. Unsigned hashes are not publisher signatures; source availability and an antivirus scan are not guarantees either.
+The patcher checks the game version, architecture and expected code structure, then verifies the inserted calls. Installation stages new files before replacing the mod and attempts rollback on failure. If rollback fails, the error gives the location of retained recovery files.
 
-See [download verification](README.md#check-your-download), [dependency hashes](THIRD-PARTY-NOTICES.md) and [build instructions](docs/building.md). Keep antivirus enabled. Report an unexpected detection with the file hash and detection name; do not assume it is a false positive.
+The launcher verifies installed hashes against the original game, metadata and embedded runtime before launch. Running `Terraria.HighFPS.exe` directly skips those checks. These checks detect changes; they do not authenticate the original game or protect against an attacker replacing the launcher itself.
+
+Release builds are unsigned and have not had an independent security audit. Compare downloads with the [published checksums](docs/release-hashes.md); matching hashes are only as trustworthy as their source. Keep antivirus enabled, and include the detection name and file hash when reporting an unexpected alert.
+
+See [build instructions](docs/building.md) and [dependency notices](THIRD-PARTY-NOTICES.md) to inspect the build inputs.
 
 ### Reporting a vulnerability
 
-Use this repository's **Security → Report a vulnerability** if that private channel is available. Include the affected release, steps to reproduce, impact and a minimal example without game binaries, personal files or secrets. Remove your username and local paths from shared logs.
+Use **Security → Report a vulnerability** on GitHub if private reporting is available. Include the affected version, reproduction steps and impact. Do not attach game binaries or personal files; remove usernames and local paths from logs.
 
-If private reporting is not enabled, open a public issue asking **pavlikmeow** for a private contact, without exploit details. A private address or active reporting channel is not promised before the repository is published. Ordinary bugs belong in Issues. Please allow time for assessment before publishing exploitable details.
+If private reporting is unavailable, open an issue asking **pavlikmeow** for a private contact without publishing exploit details. Ordinary bugs belong in Issues.
 
 ## Русский
 
-### Область поддержки
-
-Описание относится к **High FPS Support 1.1.0 для Steam Terraria 1.4.5.8, Windows x86**. Старые выпуски мода и другие версии игры не входят в текущую область поддержки. Независимый аудит, гарантированный срок ответа и цифровая подпись не заявлены.
+Описание относится к High FPS Support 1.1.0 для Steam Terraria 1.4.5.8, Windows x86.
 
 ### Файлы и разрешения
 
-В распакованном архиве находятся лаунчер, его DLL, Mono.Cecil, исходники, скрипты сборки/проверки и документация. В папке игры создаются `Terraria.HighFPS.exe`, `HighFPS.Support.dll`, сведения об установке `HighFPS.Support.install.txt` и локальный журнал `HighFPS.Support.log`. Временные файлы служат для установки и отката; при неудачном восстановлении данные для восстановления могут остаться. В `%LOCALAPPDATA%\TerrariaHighFPS` хранятся `game-path.txt` и `language.txt`.
+Лаунчер работает с правами вашей учётной записи Windows. Ему нужна запись в папку игры. Оригинальный `Terraria.exe` остаётся прежним.
 
-Для поиска игры лаунчер читает пути Steam из реестра и `libraryfolders.vdf`, а перед установкой/удалением проверяет процессы Terraria. Оригинальный `Terraria.exe` не изменяется. Службы, драйверы, задания планировщика и записи Steam в реестре не создаются. Пароли не запрашиваются, журналы никуда не отправляются. Нужны права записи в папку игры; программа работает с текущими правами пользователя и не является песочницей.
+В папке игры появляются `Terraria.HighFPS.exe`, `HighFPS.Support.dll`, метаданные `HighFPS.Support.install.txt` и журнал `HighFPS.Support.log`. Папки `.HighFPS-staging-*` служат для установки и отката; при ошибке восстановления они сохраняются. Выбранная папка игры и язык хранятся в `game-path.txt` и `language.txt` внутри `%LOCALAPPDATA%\TerrariaHighFPS`.
 
-В лаунчере и модуле интерполяции нет сетевого клиента, телеметрии и автообновления. При **сборке** может скачиваться закреплённая версия Mono.Cecil с `api.nuget.org` с проверкой хэшей пакета и DLL. Сама Terraria и Steam продолжают работать с сетью. Переход по ссылке в документации открывает соответствующий сайт.
+Для поиска игры лаунчер читает пути Steam из реестра и `libraryfolders.vdf`. Перед установкой и удалением проверяет процессы Terraria.
 
-Используются обычные сохранения Terraria. Мод включает Frame Skip: Off; игра может сохранить этот параметр в собственных настройках. Удаление мода настройки игры не сбрасывает.
+В лаунчере и модуле нет телеметрии, сетевых загрузок и автообновления. Службы, драйверы и задания планировщика не создаются. При сборке может скачиваться закреплённый Mono.Cecil с NuGet с проверкой хэшей пакета и DLL. Steam и Terraria используют сеть как обычно.
 
-### Что подтверждают проверки
+Используются обычные сохранения Terraria. Мод включает Frame Skip: Off; после удаления игра может сохранить этот параметр.
 
-Патчер проверяет имя, точную версию, архитектуру, необходимые элементы и точки вставки в игре, затем перечитывает результат. До замены файлов установка готовит и проверяет новые файлы. При ошибке замены выполняется попытка отката; абсолютной защиты от обрыва питания нет.
+### Проверки и ограничения
 
-Повторная установка и запуск через лаунчер сверяют хэши оригинала, созданного EXE и DLL с метаданными; DLL также должна совпадать со встроенной в лаунчер. Прямой запуск `Terraria.HighFPS.exe` пропускает эти проверки. Хэши и проверка структуры выявляют изменения, но не подтверждают подлинность игры или издателя и не защищают от одновременной подмены лаунчера и метаданных. При сомнениях в оригинале используйте проверку файлов Steam.
+Патчер проверяет версию, архитектуру, структуру кода и результат вставки вызовов. Установка сначала готовит новые файлы, затем заменяет мод. При ошибке выполняется откат; если восстановление не удалось, сообщение указывает папку с оставшимися файлами.
 
-Совпадение хэша релиза означает совпадение с доверенной контрольной суммой. Злоумышленник может заменить и файл, и сумму в одном источнике. Хэш без подписи не является подписью издателя; открытый код и проверка антивирусом тоже не гарантируют безопасность. [Проверка загрузки](docs/README.ru.md#как-проверить-скачанные-файлы) · [Хэши зависимости](THIRD-PARTY-NOTICES.md) · [Самостоятельная сборка](docs/building.ru.md).
+Перед запуском лаунчер сверяет хэши установленного мода с оригинальной игрой, метаданными и встроенным модулем. Прямой запуск `Terraria.HighFPS.exe` пропускает эти проверки. Они выявляют изменения, но не подтверждают подлинность игры и не защищают от подмены самого лаунчера.
 
-Не отключайте антивирус. При неожиданном срабатывании сообщите название угрозы и хэш файла: заранее считать его ложным нельзя.
+У сборок нет цифровой подписи; независимый аудит не проводился. Сравнивайте файлы с [опубликованными хэшами](docs/release-hashes.md), учитывая надёжность их источника. Не отключайте антивирус. При неожиданном срабатывании укажите название угрозы и хэш файла.
+
+Зависимости описаны в [уведомлениях](THIRD-PARTY-NOTICES.md), процесс сборки — в [инструкции](docs/building.ru.md).
 
 ### Сообщить об уязвимости
 
-Если доступно, используйте **Security → Report a vulnerability** этого репозитория. Укажите выпуск, воспроизведение и возможные последствия. Не прикладывайте игру, личные файлы и секреты; уберите имя пользователя и пути из журналов.
+Если доступно, используйте **Security → Report a vulnerability** на GitHub. Укажите версию, шаги воспроизведения и последствия. Не прикладывайте игру или личные файлы; удалите имена пользователей и пути из журналов.
 
-Если закрытый канал ещё не включён, создайте Issue с просьбой к **pavlikmeow** предоставить приватный контакт, без описания эксплуатации. До публикации репозитория наличие такого канала не обещается. Обычные ошибки отправляйте в Issues. Дайте автору время на проверку перед публикацией опасных подробностей.
+Если закрытого канала нет, создайте Issue с просьбой к **pavlikmeow** предоставить приватный контакт, без подробностей эксплуатации. Обычные ошибки отправляйте в Issues.
