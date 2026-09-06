@@ -13,7 +13,7 @@ Terraria 每秒更新游戏世界 60 次。此模组在更新之间绘制玩家�
 
 ## 开始游戏
 
-1. 在此仓库的 **Releases** 中下载 `HighFPS-Support-1.1.0-Terraria-1.4.5.8-win-x86.zip`，将**整个压缩包完整解压**到一个文件夹。不要在 ZIP 内运行，也不要只移动 EXE。
+1. 在此仓库的 [Releases](https://github.com/Pavlikmeow/terraria-high-fps/releases) 中下载 `HighFPS-Support-1.1.0-Terraria-1.4.5.8-win-x86.zip`，将**整个压缩包完整解压**到一个文件夹。不要在 ZIP 内运行，也不要只移动 EXE。
 2. 按下方说明验证下载。关闭 Terraria，保持 Steam 运行。
 3. 打开 **`HighFpsSupport.exe`**。在右上角 **Language / Язык** 中选择 **简体中文**。此设置会保存，仅影响启动器语言。
 4. 确认检测到的游戏目录。如需手动选择，请指定同时包含 **`Terraria.exe` 和 `Content`** 的文件夹。在 Steam 中可通过 Terraria → 属性 → 已安装文件 → 浏览找到它。
@@ -53,6 +53,6 @@ powershell -NoProfile -File .\verify-release.ps1
 
 ## 许可与致谢
 
-项目自有代码和文档采用 [MIT 许可证](../LICENSE)，© 2026 pavlikmeow。Mono.Cecil 保留独立的 MIT 声明。感谢 [TerrariaHighFPS](https://github.com/Yukurotei/TerrariaHighFPS) 公开介绍的实现思路；致谢并不授予复制无许可证源代码的权利。[完整声明（英语/俄语）](../THIRD-PARTY-NOTICES.md)。
+作者：**pavlikmeow**。项目代码和文档采用 [MIT 许可证](../LICENSE)。感谢 [TerrariaHighFPS](https://github.com/Yukurotei/TerrariaHighFPS) 提供的插值思路。Mono.Cecil 的许可证及相关声明见[第三方声明（英语/俄语）](../THIRD-PARTY-NOTICES.md)。
 
-本项目由爱好者独立制作，与 Re-Logic、Valve、Microsoft 无隶属关系，也未获其背书。Terraria 属于 Re-Logic，其他产品名称属于相应权利人。本项目不分发游戏、游戏资源或 XNA。请勿上传本地生成的游戏 EXE。项目许可证不授予这些第三方产品的权利，相关条款和适用法律仍然有效。
+这是非官方爱好者项目，与 Re-Logic、Valve 或 Microsoft 无隶属关系。项目不包含游戏及其资源；请使用自己的 Terraria 副本。

@@ -1,5 +1,4 @@
-﻿# EN: Verify both acceptance and rejection without a game installation or network access.
-# RU: Проверяем принятие и отклонение файлов без установленной игры и доступа к сети.
+﻿# Verify both acceptance and rejection without a game installation or network access.
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot

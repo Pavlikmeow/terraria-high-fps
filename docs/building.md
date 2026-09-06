@@ -37,7 +37,7 @@ release/HighFPS-Support-1.1.0-Terraria-1.4.5.8-win-x86.zip
 release/SHA256SUMS.txt
 ```
 
-Documentation, notices, a verifier and the project source/build/test scripts are included in `dist` and the ZIP. The repository's `docs/release-hashes.md` records release-specific hashes; the archive contains a companion version without a circular self-hash.
+Documentation, notices, a verifier and the project source/build/test scripts are included in `dist` and the ZIP. Each build writes its checksums to `release/release-hashes.md`. The published checksums in `docs/release-hashes.md` stay unchanged. The archive contains binary hashes without a circular self-hash.
 
 If Windows blocks scripts, first review the script and its imported `scripts/common.ps1`. On your own computer, if your policy permits it, you can allow this one PowerShell process to execute the reviewed build:
 

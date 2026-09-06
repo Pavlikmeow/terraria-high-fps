@@ -1,9 +1,18 @@
+# Build output and dependency cache
 .build/
 .deps/
 dist/
 release/
+bin/
+obj/
+
+# Local editor settings
+.vs/
+.idea/
 *.user
 *.suo
+
+# Binaries, archives and temporary files
 *.exe
 *.dll
 *.pdb
@@ -11,7 +20,17 @@ release/
 *.zip
 *.log
 *.building-*
+*.building
+*.download
 *.old-*
+
+# Game files and saves
 Content/
 Players/
 Worlds/
+*.wld
+*.wld.bak
+*.plr
+*.plr.bak
+.HighFPS-staging-*/
+HighFPS.Support.install.txt

@@ -1,5 +1,4 @@
-﻿# EN: Shared, pinned build inputs. No game files are downloaded or redistributed.
-# RU: Общие зависимости. Файлы игры не скачиваются и не распространяются.
+﻿# Shared, pinned build inputs. No game files are downloaded or redistributed.
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
@@ -27,8 +26,7 @@ function Get-CecilPath([string]$Root) {
     }
     Assert-FileHash $package 'D2A23832AAA948BA9A01ACC42B5726E34C5F995958F1B30D45C0E7C70B3A72D5'
     if (-not (Test-Path -LiteralPath $dll)) {
-        # EN: ZipFile supports .nupkg on Windows PowerShell 5.1.
-        # RU: ZipFile поддерживает .nupkg в Windows PowerShell 5.1.
+        # ZipFile supports .nupkg on Windows PowerShell 5.1.
         Add-Type -AssemblyName System.IO.Compression.FileSystem
         $extract = Join-Path $deps ('cecil-extract-' + [Guid]::NewGuid().ToString('N'))
         [IO.Compression.ZipFile]::ExtractToDirectory($package, $extract)
